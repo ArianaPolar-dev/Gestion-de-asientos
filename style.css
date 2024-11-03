@@ -23,7 +23,7 @@ body {
 }
 
 #sections-container {
-    display: flex;
+    display: flex; /* Organizar secciones en línea horizontal */
     justify-content: space-around;
     width: 100%;
     padding: 20px;
@@ -72,6 +72,7 @@ body {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     gap: 5px;
+    transform: rotate(-10deg); /* Gira ligeramente para simular disposición inclinada */
 }
 
 /* Sección C: Disposición en filas largas */
@@ -79,4 +80,5 @@ body {
     display: grid;
     grid-template-columns: repeat(9, 1fr);
     gap: 5px;
+    justify-items: center;
 }
