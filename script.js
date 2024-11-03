@@ -1,4 +1,4 @@
-// Firebase import and configuration
+// Importación e inicialización de Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
 import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
@@ -14,7 +14,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// Estado inicial
+// Variables de estado
 let selectedSeat = null;
 let isVIP = false;
 
