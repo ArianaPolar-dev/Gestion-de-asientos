@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,20 +8,30 @@
 </head>
 <body>
     <div class="header">
-        <button class="vip-button" onclick="enterVIPMode()">VIP</button>
+        <h1>Gestión de Asientos</h1>
+        <button id="vipButton">VIP</button>
     </div>
-    <h1>Gestión de Asientos</h1>
-    
-    <div id="sections-container">
-        <!-- Intercambiamos las posiciones de las secciones A y C -->
-        <div id="sectionC" class="seating-section section-c"></div>
-        <div id="sectionB" class="seating-section section-b"></div>
-        <div id="sectionA" class="seating-section section-a"></div>
+    <div id="seats-container">
+        <div class="section" id="sectionA">
+            <h2>Sección A</h2>
+            <div class="seats" id="seatsA"></div>
+        </div>
+        <div class="section" id="sectionB">
+            <h2>Sección B</h2>
+            <div class="seats" id="seatsB"></div>
+        </div>
+        <div class="section" id="sectionC">
+            <h2>Sección C</h2>
+            <div class="seats" id="seatsC"></div>
+        </div>
+    </div>
+    <div id="selected-seat">
+        <p id="seat-info"></p>
+        <button id="confirmButton">Confirmar Reserva</button>
     </div>
 
-    <div id="selected-seat">Asiento seleccionado: Ninguno</div>
-    <button id="confirm-reserve" onclick="confirmReservation()">Confirmar Reserva</button>
-
-    <script src="script.js" type="module" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
