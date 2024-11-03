@@ -23,7 +23,7 @@ body {
 }
 
 #sections-container {
-    display: flex; /* Organizar secciones en línea horizontal */
+    display: flex;
     justify-content: space-around;
     width: 100%;
     padding: 20px;
@@ -43,6 +43,7 @@ body {
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    user-select: none;
 }
 
 .occupied {
@@ -67,12 +68,12 @@ body {
     gap: 5px;
 }
 
-/* Sección B: Disposición en forma de rombo */
+/* Sección B: Disposición en forma de rombo (disposición diagonal) */
 .section-b {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     gap: 5px;
-    transform: rotate(-10deg); /* Gira ligeramente para simular disposición inclinada */
+    transform: rotate(-10deg); /* Ajustar rotación para simular disposición inclinada */
 }
 
 /* Sección C: Disposición en filas largas */
@@ -81,4 +82,9 @@ body {
     grid-template-columns: repeat(9, 1fr);
     gap: 5px;
     justify-items: center;
+}
+
+/* Resaltar asiento seleccionado para VIP */
+.seat.dragging {
+    background-color: blue !important;
 }
