@@ -1,8 +1,7 @@
-// Importar Firebase
+// Configuración de Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
 import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
 
-// Configuración de Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyA5nPyvaMXhl2K02FDE1JDbm8ceJ_tRgSU",
   authDomain: "asientospolar.firebaseapp.com",
@@ -12,7 +11,6 @@ const firebaseConfig = {
   appId: "1:477885194157:web:8d0e7324be551002024b24"
 };
 
-// Inicializar Firebase
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
@@ -65,6 +63,10 @@ document.getElementById("confirmButton").addEventListener("click", () => {
     if (selectedSeat) {
         const seatRef = ref(database, `seats/${selectedSeat}`);
         set(seatRef, { occupied: true });
+        document.getElementById(selectedSeat).classList.add("occupied");
+        selectedSeat = null;
+        document.getElementById("seat-info").textContent = "Seleccione un asiento";
+        document.getElementById("confirmButton").style.display = "none";
     }
 });
 
@@ -84,7 +86,8 @@ function enableVIPMode() {
         seatElement.addEventListener("click", () => {
             const seatId = seatElement.id;
             if (isVIP) {
-                set(ref(database, `seats/${seatId}`), { occupied: false });
+                const seatRef = ref(database, `seats/${seatId}`);
+                set(seatRef, { occupied: false });
                 seatElement.classList.remove("occupied");
             }
         });
