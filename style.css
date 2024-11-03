@@ -27,20 +27,23 @@ body {
 
 .seats {
     display: grid;
-    grid-template-columns: repeat(10, 30px);
+    grid-template-columns: repeat(10, 40px); /* Ajusta el número de columnas si es necesario */
     gap: 5px;
     justify-content: center;
+    margin: 10px 0;
 }
 
 .seat {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     background-color: black;
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 12px;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .occupied {
