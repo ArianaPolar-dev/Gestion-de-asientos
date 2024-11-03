@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,21 +12,15 @@
     </div>
     <h1>Gestión de Asientos</h1>
     
-    <!-- Sección A -->
-    <div class="seating-section" id="sectionA"></div>
-    
-    <!-- Sección B -->
-    <div class="seating-section" id="sectionB"></div>
-    
-    <!-- Sección C -->
-    <div class="seating-section" id="sectionC"></div>
+    <div id="sections-container">
+        <div id="sectionA" class="seating-section section-a"></div>
+        <div id="sectionB" class="seating-section section-b"></div>
+        <div id="sectionC" class="seating-section section-c"></div>
+    </div>
 
     <div id="selected-seat">Asiento seleccionado: Ninguno</div>
-    <button id="confirm-reserve" onclick="confirmReservation()" style="display: none;">Confirmar reserva</button>
+    <button id="confirm-reserve" onclick="confirmReservation()">Confirmar Reserva</button>
 
-    <!-- Firebase and Script -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
     <script src="script.js" type="module" defer></script>
 </body>
 </html>
