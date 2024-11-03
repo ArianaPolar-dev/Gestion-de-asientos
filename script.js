@@ -39,6 +39,7 @@ async function renderSeats() {
 
     for (const section in sections) {
         const sectionElement = document.getElementById(`section${section}`);
+        sectionElement.innerHTML = ""; // Limpiar cualquier contenido previo en la sección
         for (let i = 1; i <= sections[section]; i++) {
             const seatId = `${section}${i}`;
             const seatElement = document.createElement("div");
@@ -54,15 +55,6 @@ async function renderSeats() {
 
             // Agregar evento para seleccionar asiento
             seatElement.addEventListener("click", () => selectSeat(seatId, seatElement));
-
-            // Solo en modo VIP se permite el intercambio de asientos
-            if (isVIPMode) {
-                seatElement.addEventListener("contextmenu", (e) => {
-                    e.preventDefault();
-                    startDrag(seatElement);
-                });
-                seatElement.addEventListener("mouseup", () => endDrag(seatElement));
-            }
 
             sectionElement.appendChild(seatElement);
         }
@@ -89,24 +81,5 @@ async function confirmReservation() {
     }
 }
 
-// Funciones para arrastrar y soltar en modo VIP
-function startDrag(seat) {
-    if (!isVIPMode) return;
-    seat.classList.add("dragging");
-    seat.addEventListener("mousemove", handleDrag);
-}
-
-function handleDrag(e) {
-    const seat = e.target;
-    seat.style.position = "absolute";
-    seat.style.left = `${e.pageX - seat.offsetWidth / 2}px`;
-    seat.style.top = `${e.pageY - seat.offsetHeight / 2}px`;
-}
-
-function endDrag(seat) {
-    if (!isVIPMode) return;
-    seat.classList.remove("dragging");
-    seat.removeEventListener("mousemove", handleDrag);
-}
-
+// Ejecutar la función renderSeats al cargar la página
 renderSeats();
