@@ -1,90 +1,38 @@
+/* style.css */
+
 body {
     font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0;
-    padding: 0;
+    text-align: center;
 }
 
 .header {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
+    text-align: right;
     padding: 10px;
-}
-
-.vip-button {
-    background-color: gold;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-#sections-container {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    padding: 20px;
 }
 
 .seating-section {
-    margin: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 10px;
+    gap: 5px;
 }
 
 .seat {
     width: 30px;
     height: 30px;
-    margin: 2px;
     background-color: black;
     color: white;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     cursor: pointer;
-    user-select: none;
 }
 
 .occupied {
     background-color: red !important;
 }
 
-#selected-seat {
-    margin-top: 20px;
-}
-
-#confirm-reserve {
-    margin-top: 10px;
-    padding: 8px 12px;
-}
-
-/* Estilos específicos para la disposición de cada sección */
-
-/* Sección A: Disposición de asientos en 7 columnas */
-.section-a {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 5px;
-}
-
-/* Sección B: Disposición en forma de rombo (disposición diagonal) */
-.section-b {
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    gap: 5px;
-    transform: rotate(-10deg); /* Ajustar rotación para simular disposición inclinada */
-}
-
-/* Sección C: Disposición en filas largas */
-.section-c {
-    display: grid;
-    grid-template-columns: repeat(9, 1fr);
-    gap: 5px;
-    justify-items: center;
-}
-
-/* Resaltar asiento seleccionado para VIP */
-.seat.dragging {
-    background-color: blue !important;
+.dragging {
+    opacity: 0.5;
 }
