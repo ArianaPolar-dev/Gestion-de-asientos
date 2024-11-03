@@ -47,6 +47,7 @@ function loadSeatStatus(seatId, seatElement) {
             seatElement.removeEventListener("click", () => selectSeat(seatId));
         } else {
             seatElement.classList.remove("occupied");
+            seatElement.addEventListener("click", () => selectSeat(seatId));
         }
     });
 }
