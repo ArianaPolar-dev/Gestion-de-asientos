@@ -1,4 +1,3 @@
-/* Configuración general */
 body {
     font-family: Arial, sans-serif;
     background-color: #f3f3f3;
@@ -24,10 +23,16 @@ body {
 
 .section {
     text-align: center;
-    margin: 0 20px;
 }
 
-/* Configuración de asientos generales */
+.seats {
+    display: grid;
+    grid-template-columns: repeat(10, 40px); /* Ajusta el número de columnas si es necesario */
+    gap: 5px;
+    justify-content: center;
+    margin: 10px 0;
+}
+
 .seat {
     width: 40px;
     height: 40px;
@@ -46,205 +51,6 @@ body {
     cursor: not-allowed;
 }
 
-/* Sección A */
-#seatsA {
-    display: grid;
-    grid-template-areas: 
-        "A1 A2 A3 A4 A5 A6 A7"
-        "A8 A9 A10 A11 A12 A13 A14"
-        "A15 A16 A17 A18 A19 A20 A21"
-        "A22 A23 A24 A25 A26 A27 A28"
-        "A29 A30 A31 A32 A33 A34 A35"
-        "A36 A37 A38 A39 A40 A41 A42"
-        "A43 A44 A45 A46 A47 A48 A49"
-        "A50 A51";
-    gap: 5px;
-}
-
-#seatsA .seat:nth-child(1) { grid-area: A1; }
-#seatsA .seat:nth-child(2) { grid-area: A2; }
-#seatsA .seat:nth-child(3) { grid-area: A3; }
-#seatsA .seat:nth-child(4) { grid-area: A4; }
-#seatsA .seat:nth-child(5) { grid-area: A5; }
-#seatsA .seat:nth-child(6) { grid-area: A6; }
-#seatsA .seat:nth-child(7) { grid-area: A7; }
-#seatsA .seat:nth-child(8) { grid-area: A8; }
-#seatsA .seat:nth-child(9) { grid-area: A9; }
-#seatsA .seat:nth-child(10) { grid-area: A10; }
-#seatsA .seat:nth-child(11) { grid-area: A11; }
-#seatsA .seat:nth-child(12) { grid-area: A12; }
-#seatsA .seat:nth-child(13) { grid-area: A13; }
-#seatsA .seat:nth-child(14) { grid-area: A14; }
-#seatsA .seat:nth-child(15) { grid-area: A15; }
-#seatsA .seat:nth-child(16) { grid-area: A16; }
-#seatsA .seat:nth-child(17) { grid-area: A17; }
-#seatsA .seat:nth-child(18) { grid-area: A18; }
-#seatsA .seat:nth-child(19) { grid-area: A19; }
-#seatsA .seat:nth-child(20) { grid-area: A20; }
-#seatsA .seat:nth-child(21) { grid-area: A21; }
-#seatsA .seat:nth-child(22) { grid-area: A22; }
-#seatsA .seat:nth-child(23) { grid-area: A23; }
-#seatsA .seat:nth-child(24) { grid-area: A24; }
-#seatsA .seat:nth-child(25) { grid-area: A25; }
-#seatsA .seat:nth-child(26) { grid-area: A26; }
-#seatsA .seat:nth-child(27) { grid-area: A27; }
-#seatsA .seat:nth-child(28) { grid-area: A28; }
-#seatsA .seat:nth-child(29) { grid-area: A29; }
-#seatsA .seat:nth-child(30) { grid-area: A30; }
-#seatsA .seat:nth-child(31) { grid-area: A31; }
-#seatsA .seat:nth-child(32) { grid-area: A32; }
-#seatsA .seat:nth-child(33) { grid-area: A33; }
-#seatsA .seat:nth-child(34) { grid-area: A34; }
-#seatsA .seat:nth-child(35) { grid-area: A35; }
-#seatsA .seat:nth-child(36) { grid-area: A36; }
-#seatsA .seat:nth-child(37) { grid-area: A37; }
-#seatsA .seat:nth-child(38) { grid-area: A38; }
-#seatsA .seat:nth-child(39) { grid-area: A39; }
-#seatsA .seat:nth-child(40) { grid-area: A40; }
-#seatsA .seat:nth-child(41) { grid-area: A41; }
-#seatsA .seat:nth-child(42) { grid-area: A42; }
-#seatsA .seat:nth-child(43) { grid-area: A43; }
-#seatsA .seat:nth-child(44) { grid-area: A44; }
-#seatsA .seat:nth-child(45) { grid-area: A45; }
-#seatsA .seat:nth-child(46) { grid-area: A46; }
-#seatsA .seat:nth-child(47) { grid-area: A47; }
-#seatsA .seat:nth-child(48) { grid-area: A48; }
-#seatsA .seat:nth-child(49) { grid-area: A49; }
-#seatsA .seat:nth-child(50) { grid-area: A50; }
-#seatsA .seat:nth-child(51) { grid-area: A51; }
-
-/* Continúa hasta A50 */
-
-/* Sección B */
-#seatsB {
-    display: grid;
-    grid-template-areas: 
-        "B1 B2 B3 B4 B5 B6 B7 B8 B9 B10"
-        "B11 B12 B13 B14 B15 B16 B17 B18 B19 B20"
-        "B21 B22 B23 B24 B25 B26 B27 B28 B29 B30"
-        "B31 B32 B33 B34 B35 B36 B37 B38 B39 B40"
-        "B41 B42 B43 B44 B45 B46 B47 B48 B49 B50 B51";
-    gap: 5px;
-}
-
-#seatsB .seat:nth-child(1) { grid-area: B1; }
-#seatsB .seat:nth-child(2) { grid-area: B2; }
-#seatsB .seat:nth-child(3) { grid-area: B3; }
-#seatsB .seat:nth-child(4) { grid-area: B4; }
-#seatsB .seat:nth-child(5) { grid-area: B5; }
-#seatsB .seat:nth-child(6) { grid-area: B6; }
-#seatsB .seat:nth-child(7) { grid-area: B7; }
-#seatsB .seat:nth-child(8) { grid-area: B8; }
-#seatsB .seat:nth-child(9) { grid-area: B9; }
-#seatsB .seat:nth-child(10) { grid-area: B10; }
-#seatsB .seat:nth-child(11) { grid-area: B11; }
-#seatsB .seat:nth-child(12) { grid-area: B12; }
-#seatsB .seat:nth-child(13) { grid-area: B13; }
-#seatsB .seat:nth-child(14) { grid-area: B14; }
-#seatsB .seat:nth-child(15) { grid-area: B15; }
-#seatsB .seat:nth-child(16) { grid-area: B16; }
-#seatsB .seat:nth-child(17) { grid-area: B17; }
-#seatsB .seat:nth-child(18) { grid-area: B18; }
-#seatsB .seat:nth-child(19) { grid-area: B19; }
-#seatsB .seat:nth-child(20) { grid-area: B20; }
-#seatsB .seat:nth-child(21) { grid-area: B21; }
-#seatsB .seat:nth-child(22) { grid-area: B22; }
-#seatsB .seat:nth-child(23) { grid-area: B23; }
-#seatsB .seat:nth-child(24) { grid-area: B24; }
-#seatsB .seat:nth-child(25) { grid-area: B25; }
-#seatsB .seat:nth-child(26) { grid-area: B26; }
-#seatsB .seat:nth-child(27) { grid-area: B27; }
-#seatsB .seat:nth-child(28) { grid-area: B28; }
-#seatsB .seat:nth-child(29) { grid-area: B29; }
-#seatsB .seat:nth-child(30) { grid-area: B30; }
-#seatsB .seat:nth-child(31) { grid-area: B31; }
-#seatsB .seat:nth-child(32) { grid-area: B32; }
-#seatsB .seat:nth-child(33) { grid-area: B33; }
-#seatsB .seat:nth-child(34) { grid-area: B34; }
-#seatsB .seat:nth-child(35) { grid-area: B35; }
-#seatsB .seat:nth-child(36) { grid-area: B36; }
-#seatsB .seat:nth-child(37) { grid-area: B37; }
-#seatsB .seat:nth-child(38) { grid-area: B38; }
-#seatsB .seat:nth-child(39) { grid-area: B39; }
-#seatsB .seat:nth-child(40) { grid-area: B40; }
-#seatsB .seat:nth-child(41) { grid-area: B41; }
-#seatsB .seat:nth-child(42) { grid-area: B42; }
-#seatsB .seat:nth-child(43) { grid-area: B43; }
-#seatsB .seat:nth-child(44) { grid-area: B44; }
-#seatsB .seat:nth-child(45) { grid-area: B45; }
-#seatsB .seat:nth-child(46) { grid-area: B46; }
-#seatsB .seat:nth-child(47) { grid-area: B47; }
-#seatsB .seat:nth-child(48) { grid-area: B48; }
-#seatsB .seat:nth-child(49) { grid-area: B49; }
-#seatsB .seat:nth-child(50) { grid-area: B50; }
-#seatsB .seat:nth-child(51) { grid-area: B51; }
-
-/* Sección C */
-#seatsC {
-    display: grid;
-    grid-template-areas: 
-        "C1 C2 C3 C4 C5 C6 C7"
-        "C8 C9 C10 C11 C12 C13 C14"
-        "C15 C16 C17 C18 C19 C20 C21"
-        "C22 C23 C24 C25 C26 C27 C28"
-        "C29 C30 C31 C32 C33 C34 C35"
-        "C36 C37 C38 C39 C40 C41 C42"
-        "C43 C44 C45 C46 C47 C48 C49";
-    gap: 5px;
-}
-
-#seatsC .seat:nth-child(1) { grid-area: C1; }
-#seatsC .seat:nth-child(2) { grid-area: C2; }
-#seatsC .seat:nth-child(3) { grid-area: C3; }
-#seatsC .seat:nth-child(4) { grid-area: C4; }
-#seatsC .seat:nth-child(5) { grid-area: C5; }
-#seatsC .seat:nth-child(6) { grid-area: C6; }
-#seatsC .seat:nth-child(7) { grid-area: C7; }
-#seatsC .seat:nth-child(8) { grid-area: C8; }
-#seatsC .seat:nth-child(9) { grid-area: C9; }
-#seatsC .seat:nth-child(10) { grid-area: C10; }
-#seatsC .seat:nth-child(11) { grid-area: C11; }
-#seatsC .seat:nth-child(12) { grid-area: C12; }
-#seatsC .seat:nth-child(13) { grid-area: C13; }
-#seatsC .seat:nth-child(14) { grid-area: C14; }
-#seatsC .seat:nth-child(15) { grid-area: C15; }
-#seatsC .seat:nth-child(16) { grid-area: C16; }
-#seatsC .seat:nth-child(17) { grid-area: C17; }
-#seatsC .seat:nth-child(18) { grid-area: C18; }
-#seatsC .seat:nth-child(19) { grid-area: C19; }
-#seatsC .seat:nth-child(20) { grid-area: C20; }
-#seatsC .seat:nth-child(21) { grid-area: C21; }
-#seatsC .seat:nth-child(22) { grid-area: C22; }
-#seatsC .seat:nth-child(23) { grid-area: C23; }
-#seatsC .seat:nth-child(24) { grid-area: C24; }
-#seatsC .seat:nth-child(25) { grid-area: C25; }
-#seatsC .seat:nth-child(26) { grid-area: C26; }
-#seatsC .seat:nth-child(27) { grid-area: C27; }
-#seatsC .seat:nth-child(28) { grid-area: C28; }
-#seatsC .seat:nth-child(29) { grid-area: C29; }
-#seatsC .seat:nth-child(30) { grid-area: C30; }
-#seatsC .seat:nth-child(31) { grid-area: C31; }
-#seatsC .seat:nth-child(32) { grid-area: C32; }
-#seatsC .seat:nth-child(33) { grid-area: C33; }
-#seatsC .seat:nth-child(34) { grid-area: C34; }
-#seatsC .seat:nth-child(35) { grid-area: C35; }
-#seatsC .seat:nth-child(36) { grid-area: C36; }
-#seatsC .seat:nth-child(37) { grid-area: C37; }
-#seatsC .seat:nth-child(38) { grid-area: C38; }
-#seatsC .seat:nth-child(39) { grid-area: C39; }
-#seatsC .seat:nth-child(40) { grid-area: C40; }
-#seatsC .seat:nth-child(41) { grid-area: C41; }
-#seatsC .seat:nth-child(42) { grid-area: C42; }
-#seatsC .seat:nth-child(43) { grid-area: C43; }
-#seatsC .seat:nth-child(44) { grid-area: C44; }
-#seatsC .seat:nth-child(45) { grid-area: C45; }
-#seatsC .seat:nth-child(46) { grid-area: C46; }
-#seatsC .seat:nth-child(47) { grid-area: C47; }
-#seatsC .seat:nth-child(48) { grid-area: C48; }
-#seatsC .seat:nth-child(49) { grid-area: C49; }
-
-
-/* Estilo del botón de confirmación */
 #selected-seat {
     margin-top: 20px;
 }
