@@ -1,28 +1,25 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
 import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
 
+// Configuración de Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyA5nPyvaMXhl2K02FDE1JDbm8ceJ_tRgSU",
   authDomain: "asientospolar.firebaseapp.com",
-  databaseURL: "https://asientospolar-default-rtdb.firebaseio.com", // Asegúrate de usar el URL raíz
+  databaseURL: "https://asientospolar-default-rtdb.firebaseio.com",
   projectId: "asientospolar",
   storageBucket: "asientospolar.appspot.com",
   messagingSenderId: "477885194157",
   appId: "1:477885194157:web:8d0e7324be551002024b24"
 };
 
-
+// Inicializar Firebase
 const app = initializeApp(firebaseConfig);
+
+// Obtener la base de datos (sin URL adicional)
 const database = getDatabase(app);
 
-const seatSections = {
-    A: 51,
-    B: 51,
-    C: 49
-};
-
-let selectedSeat = null;
-let isVIP = false;
+// Resto de tu código para gestionar los asientos
+const seatSections = { A: 51, B: 51, C: 49 };
 
 function renderSeats() {
     for (const section in seatSections) {
@@ -51,49 +48,6 @@ function loadSeatStatus(seatId, seatElement) {
             seatElement.classList.remove("occupied");
             seatElement.addEventListener("click", () => selectSeat(seatId));
         }
-    });
-}
-
-function selectSeat(seatId) {
-    selectedSeat = seatId;
-    document.getElementById("seat-info").textContent = `Asiento Seleccionado: ${seatId}`;
-    document.getElementById("confirmButton").style.display = "inline-block";
-}
-
-document.getElementById("confirmButton").addEventListener("click", () => {
-    if (selectedSeat) {
-        const seatRef = ref(database, `seats/${selectedSeat}`);
-        set(seatRef, { occupied: true }).then(() => {
-            document.getElementById(selectedSeat).classList.add("occupied");
-            selectedSeat = null;
-            document.getElementById("seat-info").textContent = "Seleccione un asiento";
-            document.getElementById("confirmButton").style.display = "none";
-        });
-    }
-});
-
-document.getElementById("vipButton").addEventListener("click", () => {
-    const password = prompt("Ingrese la contraseña:");
-    if (password === "piroxeno") {
-        isVIP = true;
-        alert("Modo administrador activado");
-        enableVIPMode();
-    } else {
-        alert("Contraseña incorrecta");
-    }
-});
-
-function enableVIPMode() {
-    document.querySelectorAll(".seat.occupied").forEach((seatElement) => {
-        seatElement.addEventListener("click", () => {
-            const seatId = seatElement.id;
-            if (isVIP) {
-                const seatRef = ref(database, `seats/${seatId}`);
-                set(seatRef, { occupied: false }).then(() => {
-                    seatElement.classList.remove("occupied");
-                });
-            }
-        });
     });
 }
 
