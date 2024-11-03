@@ -4,7 +4,6 @@ import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebase
 const firebaseConfig = {
   apiKey: "AIzaSyA5nPyvaMXhl2K02FDE1JDbm8ceJ_tRgSU",
   authDomain: "asientospolar.firebaseapp.com",
-  databaseURL: "https://asientospolar-default-rtdb.firebaseio.com/",
   projectId: "asientospolar",
   storageBucket: "asientospolar.appspot.com",
   messagingSenderId: "477885194157",
