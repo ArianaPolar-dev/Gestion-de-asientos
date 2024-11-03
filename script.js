@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs, updateDoc, doc, setDoc } from "firebase/firestore";
+import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 
+// Configuración de Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyA5nPyvaMXhl2K02FDE1JDbm8ceJ_tRgSU",
     authDomain: "asientospolar.firebaseapp.com",
@@ -10,13 +11,12 @@ const firebaseConfig = {
     appId: "1:477885194157:web:8d0e7324be551002024b24"
 };
 
-// Initialize Firebase
+// Inicializar Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 let selectedSeat = null;
 let isVIPMode = false;
-let draggedSeat = null;
 
 // Función para activar modo VIP
 function enterVIPMode() {
@@ -31,12 +31,15 @@ function enterVIPMode() {
 
 // Renderizar asientos y añadir eventos
 async function renderSeats() {
-    const sections = ["A", "B", "C"];
-    for (const section of sections) {
-        const sectionElement = document.getElementById(`section${section}`);
-        for (let i = 1; i <= 51; i++) {
-            if (section === "C" && i > 49) break; // Sección C solo tiene 49 asientos
+    const sections = {
+        A: 51,
+        B: 51,
+        C: 49
+    };
 
+    for (const section in sections) {
+        const sectionElement = document.getElementById(`section${section}`);
+        for (let i = 1; i <= sections[section]; i++) {
             const seatId = `${section}${i}`;
             const seatElement = document.createElement("div");
             seatElement.classList.add("seat");
@@ -51,8 +54,8 @@ async function renderSeats() {
 
             // Agregar evento para seleccionar asiento
             seatElement.addEventListener("click", () => selectSeat(seatId, seatElement));
-            
-            // Eventos para arrastrar y soltar en modo VIP
+
+            // Solo en modo VIP se permite el intercambio de asientos
             if (isVIPMode) {
                 seatElement.addEventListener("contextmenu", (e) => {
                     e.preventDefault();
@@ -60,7 +63,7 @@ async function renderSeats() {
                 });
                 seatElement.addEventListener("mouseup", () => endDrag(seatElement));
             }
-            
+
             sectionElement.appendChild(seatElement);
         }
     }
@@ -77,7 +80,7 @@ async function confirmReservation() {
     if (selectedSeat) {
         const seatDoc = doc(db, "seats", selectedSeat.id);
         await setDoc(seatDoc, { occupied: true });
-        selectedSeat.element.classList.add("occupied");
+        selectedSeat.element.classList.add("occupied"); // Cambia el color a rojo
         selectedSeat = null;
         document.getElementById("selected-seat").textContent = "Asiento seleccionado: Ninguno";
         alert("Reserva confirmada");
@@ -86,24 +89,24 @@ async function confirmReservation() {
     }
 }
 
-// Iniciar arrastre de asiento
+// Funciones para arrastrar y soltar en modo VIP
 function startDrag(seat) {
-    draggedSeat = seat;
+    if (!isVIPMode) return;
     seat.classList.add("dragging");
+    seat.addEventListener("mousemove", handleDrag);
 }
 
-// Finalizar arrastre y cambiar asiento
-function endDrag(targetSeat) {
-    if (draggedSeat && draggedSeat !== targetSeat && isVIPMode) {
-        // Intercambiar los textos de los asientos
-        const tempText = draggedSeat.textContent;
-        draggedSeat.textContent = targetSeat.textContent;
-        targetSeat.textContent = tempText;
-        
-        // Quitar clase de arrastre
-        draggedSeat.classList.remove("dragging");
-        draggedSeat = null;
-    }
+function handleDrag(e) {
+    const seat = e.target;
+    seat.style.position = "absolute";
+    seat.style.left = `${e.pageX - seat.offsetWidth / 2}px`;
+    seat.style.top = `${e.pageY - seat.offsetHeight / 2}px`;
+}
+
+function endDrag(seat) {
+    if (!isVIPMode) return;
+    seat.classList.remove("dragging");
+    seat.removeEventListener("mousemove", handleDrag);
 }
 
 renderSeats();
