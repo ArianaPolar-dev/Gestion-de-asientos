@@ -1,5 +1,3 @@
-// script.js
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
 import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
 
@@ -36,7 +34,7 @@ function renderSeats() {
             seatElement.id = seatId;
             seatElement.addEventListener("click", () => selectSeat(seatId));
             seatsContainer.appendChild(seatElement);
-            loadSeatStatus(seatId, seatElement);
+            loadSeatStatus(seatId, seatElement);  // Cargar estado desde Firebase
         }
     }
 }
@@ -63,11 +61,12 @@ function selectSeat(seatId) {
 document.getElementById("confirmButton").addEventListener("click", () => {
     if (selectedSeat) {
         const seatRef = ref(database, `seats/${selectedSeat}`);
-        set(seatRef, { occupied: true });
-        document.getElementById(selectedSeat).classList.add("occupied");
-        selectedSeat = null;
-        document.getElementById("seat-info").textContent = "Seleccione un asiento";
-        document.getElementById("confirmButton").style.display = "none";
+        set(seatRef, { occupied: true }).then(() => {
+            document.getElementById(selectedSeat).classList.add("occupied");
+            selectedSeat = null;
+            document.getElementById("seat-info").textContent = "Seleccione un asiento";
+            document.getElementById("confirmButton").style.display = "none";
+        });
     }
 });
 
@@ -88,8 +87,9 @@ function enableVIPMode() {
             const seatId = seatElement.id;
             if (isVIP) {
                 const seatRef = ref(database, `seats/${seatId}`);
-                set(seatRef, { occupied: false });
-                seatElement.classList.remove("occupied");
+                set(seatRef, { occupied: false }).then(() => {
+                    seatElement.classList.remove("occupied");
+                });
             }
         });
     });
