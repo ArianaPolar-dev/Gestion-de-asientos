@@ -1,27 +1,35 @@
-/* style.css */
-
 body {
     font-family: Arial, sans-serif;
+    background-color: #f3f3f3;
+    margin: 0;
+    padding: 0;
     text-align: center;
 }
 
 .header {
-    text-align: right;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 10px;
+    background-color: #333;
+    color: #fff;
 }
 
-#sections-container {
+#seats-container {
     display: flex;
     justify-content: space-around;
-    margin-top: 20px;
+    padding: 20px;
 }
 
-.seating-section {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+.section {
+    text-align: center;
+}
+
+.seats {
+    display: grid;
+    grid-template-columns: repeat(10, 30px);
     gap: 5px;
-    width: 150px;
+    justify-content: center;
 }
 
 .seat {
@@ -30,20 +38,29 @@ body {
     background-color: black;
     color: white;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     cursor: pointer;
 }
 
 .occupied {
-    background-color: red !important;
+    background-color: red;
+    cursor: not-allowed;
 }
 
-.vip-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    padding: 10px;
-    font-size: 16px;
+#selected-seat {
+    margin-top: 20px;
+}
+
+#confirmButton {
+    display: none;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
     cursor: pointer;
+}
+
+#confirmButton:hover {
+    background-color: #218838;
 }
