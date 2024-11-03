@@ -121,3 +121,63 @@ function toggleSeat(seatId) {
         seatDiv.classList.toggle("occupied");
     }
 }
+// Renderizar asientos y añadir eventos
+async function renderSeats() {
+    const sections = ["A", "B", "C"];
+    for (const section of sections) {
+        const sectionElement = document.getElementById(`section${section}`);
+        for (let i = 1; i <= 51; i++) {
+            const seatId = `${section}${i}`;
+            const seatElement = document.createElement("div");
+            seatElement.classList.add("seat");
+            seatElement.textContent = seatId;
+
+            seatElement.addEventListener("click", () => selectSeat(seatId));
+            
+            // Eventos para arrastrar y soltar en modo VIP
+            if (isVIPMode) {
+                seatElement.addEventListener("contextmenu", (e) => {
+                    e.preventDefault();
+                    startDrag(seatElement);
+                });
+                seatElement.addEventListener("mouseup", () => endDrag(seatElement));
+            }
+            
+            sectionElement.appendChild(seatElement);
+        }
+    }
+}
+
+// Iniciar arrastre de asiento
+function startDrag(seat) {
+    draggedSeat = seat;
+    seat.classList.add("dragging");
+}
+
+// Finalizar arrastre y cambiar asiento
+function endDrag(targetSeat) {
+    if (draggedSeat && draggedSeat !== targetSeat) {
+        // Intercambiar los textos de los asientos
+        const tempText = draggedSeat.textContent;
+        draggedSeat.textContent = targetSeat.textContent;
+        targetSeat.textContent = tempText;
+        
+        draggedSeat.classList.remove("dragging");
+        draggedSeat = null;
+    }
+}
+
+function selectSeat(seatId) {
+    selectedSeat = seatId;
+    document.getElementById("selected-seat").textContent = `Asiento seleccionado: ${seatId}`;
+}
+
+function confirmReservation() {
+    if (selectedSeat) {
+        alert(`Reserva confirmada para el asiento ${selectedSeat}`);
+    } else {
+        alert("Por favor, seleccione un asiento primero.");
+    }
+}
+
+renderSeats();
