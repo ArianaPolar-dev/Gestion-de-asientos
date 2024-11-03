@@ -1,6 +1,6 @@
-// Importación e inicialización de Firebase
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, onValue, set } from "firebase/database";
+// Firebase import and configuration
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyA5nPyvaMXhl2K02FDE1JDbm8ceJ_tRgSU",
@@ -14,30 +14,35 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// Variables de estado
+// Estado inicial
 let selectedSeat = null;
 let isVIP = false;
 
-// Generar secciones de asientos
-function generateSeats(sectionId, seatCount) {
+// Función para generar asientos en cada sección
+function generateSeats(sectionId, seatPrefix, seatCount) {
     const section = document.getElementById(sectionId);
-    for (let i = 1; i <= seatCount; i++) {
-        const seatId = `${sectionId.charAt(sectionId.length - 1)}${i}`;
-        const seatDiv = document.createElement("div");
-        seatDiv.className = "seat";
-        seatDiv.id = seatId;
-        seatDiv.textContent = seatId;
-        seatDiv.onclick = () => selectSeat(seatId);
-        section.appendChild(seatDiv);
-        updateSeatStatus(seatId); // Actualiza el estado desde Firebase
+    if (section) {
+        for (let i = 1; i <= seatCount; i++) {
+            const seatId = `${seatPrefix}${i}`;
+            const seatDiv = document.createElement("div");
+            seatDiv.className = "seat";
+            seatDiv.id = seatId;
+            seatDiv.textContent = seatId;
+            seatDiv.onclick = () => selectSeat(seatId);
+            section.appendChild(seatDiv);
+            updateSeatStatus(seatId); // Verificar el estado de ocupación en Firebase
+        }
+    } else {
+        console.error(`No se encontró la sección ${sectionId}`);
     }
 }
 
-generateSeats("sectionA", 51);
-generateSeats("sectionB", 51);
-generateSeats("sectionC", 49);
+// Generación de asientos para cada sección
+generateSeats("sectionA", "A", 51);
+generateSeats("sectionB", "B", 51);
+generateSeats("sectionC", "C", 49);
 
-// Función para seleccionar asiento
+// Selección de asiento
 function selectSeat(seatId) {
     if (selectedSeat) {
         document.getElementById(selectedSeat).classList.remove("selected");
@@ -71,7 +76,7 @@ function enterVIPMode() {
     }
 }
 
-// Actualizar el estado del asiento
+// Actualizar el estado del asiento desde Firebase
 function updateSeatStatus(seatId) {
     const seatRef = ref(db, `seats/${seatId}`);
     onValue(seatRef, (snapshot) => {
@@ -87,7 +92,7 @@ function updateSeatStatus(seatId) {
     });
 }
 
-// Cambiar estado del asiento en modo VIP
+// Alternar estado del asiento en modo VIP
 function toggleSeat(seatId) {
     if (isVIP) {
         const seatDiv = document.getElementById(seatId);
