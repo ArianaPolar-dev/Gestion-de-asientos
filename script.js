@@ -4,11 +4,13 @@ import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebase
 const firebaseConfig = {
   apiKey: "AIzaSyA5nPyvaMXhl2K02FDE1JDbm8ceJ_tRgSU",
   authDomain: "asientospolar.firebaseapp.com",
+  databaseURL: "https://asientospolar-default-rtdb.firebaseio.com", // Asegúrate de usar el URL raíz
   projectId: "asientospolar",
   storageBucket: "asientospolar.appspot.com",
   messagingSenderId: "477885194157",
   appId: "1:477885194157:web:8d0e7324be551002024b24"
 };
+
 
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
