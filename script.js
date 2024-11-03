@@ -1,85 +1,90 @@
-import { initializeApp } from "firebase/app";
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
 
-// Configuración de Firebase
 const firebaseConfig = {
-    apiKey: "AIzaSyA5nPyvaMXhl2K02FDE1JDbm8ceJ_tRgSU",
-    authDomain: "asientospolar.firebaseapp.com",
-    projectId: "asientospolar",
-    storageBucket: "asientospolar.firebasestorage.app",
-    messagingSenderId: "477885194157",
-    appId: "1:477885194157:web:8d0e7324be551002024b24"
+  apiKey: "AIzaSyA5nPyvaMXhl2K02FDE1JDbm8ceJ_tRgSU",
+  authDomain: "asientospolar.firebaseapp.com",
+  projectId: "asientospolar",
+  storageBucket: "asientospolar.appspot.com",
+  messagingSenderId: "477885194157",
+  appId: "1:477885194157:web:8d0e7324be551002024b24"
 };
 
-// Inicializar Firebase
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const database = getDatabase(app);
+
+const seatSections = {
+    A: 51,
+    B: 51,
+    C: 49
+};
 
 let selectedSeat = null;
-let isVIPMode = false;
+let isVIP = false;
 
-// Función para activar modo VIP
-function enterVIPMode() {
-    const password = prompt("Ingrese la contraseña VIP:");
-    if (password === "piroxeno") {
-        isVIPMode = true;
-        alert("Modo VIP activado.");
-    } else {
-        alert("Contraseña incorrecta.");
-    }
-}
-
-// Renderizar asientos y añadir eventos
-async function renderSeats() {
-    const sections = {
-        A: 51,
-        B: 51,
-        C: 49
-    };
-
-    for (const section in sections) {
-        const sectionElement = document.getElementById(`section${section}`);
-        sectionElement.innerHTML = ""; // Limpiar cualquier contenido previo en la sección
-        for (let i = 1; i <= sections[section]; i++) {
+function renderSeats() {
+    for (const section in seatSections) {
+        const seatsContainer = document.getElementById(`seats${section}`);
+        seatsContainer.innerHTML = "";
+        for (let i = 1; i <= seatSections[section]; i++) {
             const seatId = `${section}${i}`;
             const seatElement = document.createElement("div");
-            seatElement.classList.add("seat");
+            seatElement.className = "seat";
             seatElement.textContent = seatId;
-
-            // Verificar si el asiento está ocupado en Firebase y actualizar el estilo
-            const seatDoc = doc(db, "seats", seatId);
-            const seatSnapshot = await getDoc(seatDoc);
-            if (seatSnapshot.exists() && seatSnapshot.data().occupied) {
-                seatElement.classList.add("occupied");
-            }
-
-            // Agregar evento para seleccionar asiento
-            seatElement.addEventListener("click", () => selectSeat(seatId, seatElement));
-
-            sectionElement.appendChild(seatElement);
+            seatElement.id = seatId;
+            seatElement.addEventListener("click", () => selectSeat(seatId));
+            seatsContainer.appendChild(seatElement);
+            loadSeatStatus(seatId, seatElement);
         }
     }
 }
 
-// Seleccionar asiento
-function selectSeat(seatId, seatElement) {
-    selectedSeat = { id: seatId, element: seatElement };
-    document.getElementById("selected-seat").textContent = `Asiento seleccionado: ${seatId}`;
+function loadSeatStatus(seatId, seatElement) {
+    const seatRef = ref(database, `seats/${seatId}`);
+    onValue(seatRef, (snapshot) => {
+        if (snapshot.exists() && snapshot.val().occupied) {
+            seatElement.classList.add("occupied");
+            seatElement.removeEventListener("click", () => selectSeat(seatId));
+        } else {
+            seatElement.classList.remove("occupied");
+        }
+    });
 }
 
-// Confirmar reserva
-async function confirmReservation() {
+function selectSeat(seatId) {
+    selectedSeat = seatId;
+    document.getElementById("seat-info").textContent = `Asiento Seleccionado: ${seatId}`;
+    document.getElementById("confirmButton").style.display = "inline-block";
+}
+
+document.getElementById("confirmButton").addEventListener("click", () => {
     if (selectedSeat) {
-        const seatDoc = doc(db, "seats", selectedSeat.id);
-        await setDoc(seatDoc, { occupied: true });
-        selectedSeat.element.classList.add("occupied"); // Cambia el color a rojo
-        selectedSeat = null;
-        document.getElementById("selected-seat").textContent = "Asiento seleccionado: Ninguno";
-        alert("Reserva confirmada");
-    } else {
-        alert("Por favor, seleccione un asiento primero.");
+        const seatRef = ref(database, `seats/${selectedSeat}`);
+        set(seatRef, { occupied: true });
     }
+});
+
+document.getElementById("vipButton").addEventListener("click", () => {
+    const password = prompt("Ingrese la contraseña:");
+    if (password === "piroxeno") {
+        isVIP = true;
+        alert("Modo administrador activado");
+        enableVIPMode();
+    } else {
+        alert("Contraseña incorrecta");
+    }
+});
+
+function enableVIPMode() {
+    document.querySelectorAll(".seat.occupied").forEach((seatElement) => {
+        seatElement.addEventListener("click", () => {
+            const seatId = seatElement.id;
+            if (isVIP) {
+                set(ref(database, `seats/${seatId}`), { occupied: false });
+                seatElement.classList.remove("occupied");
+            }
+        });
+    });
 }
 
-// Ejecutar la función renderSeats al cargar la página
 renderSeats();
